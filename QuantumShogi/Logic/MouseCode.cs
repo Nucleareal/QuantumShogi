@@ -5,10 +5,8 @@ using System.Text;
 
 namespace QuantumShogi.Logic
 {
-    public abstract class Scene
+    enum MouseCode
     {
-        public abstract void Logic();
-
-        public abstract void Draw();
+        LEFTCLICK = 0, RIGHTCLICK = 1
     }
 }

@@ -47,6 +47,14 @@ namespace QuantumShogi.Environment
             {
                 get { return QuantumShogi.Logic.Piece.Type.Array.Length; }
             }
+
+            public static string[] Names
+            {
+                get { return new string[]{
+                    "歩兵", "香車", "桂馬", "銀将", "金将", "角行", "飛車", "玉将",
+                    "と金", "成香", "成桂", "成銀", "　　", "竜馬", "竜王", "王将",
+                }; }
+            }
         }
     }
 }

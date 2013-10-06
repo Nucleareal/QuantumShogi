@@ -16,5 +16,15 @@ namespace QuantumShogi.Environment
         {
             get { return 720; }
         }
+
+        public static int FontSize
+        {
+            get { return 16; }
+        }
+
+        public static int KeyCount
+        {
+            get { return 256; }
+        }
     }
 }

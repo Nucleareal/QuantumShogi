@@ -39,6 +39,9 @@
     <Compile Include="Environment\ShogiEnvironment.cs" />
     <Compile Include="Image\ImageLoader.cs" />
     <Compile Include="Logic\BoardInitializer.cs" />
+    <Compile Include="Logic\KeyEventHandler.cs" />
+    <Compile Include="Logic\KeyListener.cs" />
+    <Compile Include="Logic\MouseCode.cs" />
     <Compile Include="Logic\Rectangle.cs" />
     <Compile Include="Logic\Scene.cs" />
     <Compile Include="Logic\Scene_Play.cs" />
@@ -52,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

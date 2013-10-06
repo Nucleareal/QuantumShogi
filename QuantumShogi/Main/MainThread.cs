@@ -16,7 +16,8 @@ namespace QuantumShogi.Main
 
             while (DxLibProxy.Refresh())
             {
-                s.Run();
+                s.Draw();
+                s.Logic();
             }
         }
     }

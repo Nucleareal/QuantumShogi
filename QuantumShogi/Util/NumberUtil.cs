@@ -16,5 +16,10 @@ namespace QuantumShogi.Util
         {
             return End - Start + 1;
         }
+
+        public static double PI(double rate)
+        {
+            return Math.PI * rate;
+        }
     }
 }

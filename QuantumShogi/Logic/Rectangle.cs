@@ -47,6 +47,11 @@ namespace QuantumShogi.Logic
             return XContains(p) && YContains(p);
         }
 
+        public bool Contains(int x, int y)
+        {
+            return Contains(new Position(x, y, Position.Orientation.None));
+        }
+
         public bool XContains(Position p)
         {
             return NumberUtil.Contains(SX, EX, p.X);

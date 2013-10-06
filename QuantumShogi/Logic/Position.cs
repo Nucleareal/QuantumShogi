@@ -17,11 +17,26 @@ namespace QuantumShogi.Logic
         {
         }
 
+        public override bool Equals(Object obj)
+        {
+            var v = obj as Position;
+            if (v != null)
+            {
+                return X == v.X && Y == v.Y && Orient == v.Orient;
+            }
+            return false;
+        }
+
         public Position(int X_, int Y_, Orientation Orient_)
         {
             X = X_;
             Y = Y_;
             Orient = Orient_;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("({0},{1}):{2}", X, Y, Orient);
         }
 
         public int X
