@@ -146,8 +146,10 @@ namespace QuantumShogi.Logic
             if (AllTypes.Contains(t))
             {
                 AllTypes.Remove(t);
+                Console.WriteLine("\t\tNo.{0}から{1}の可能性が消失", Number, t.ToString());
                 if (AllTypes.Count == 0)
                 {
+                    Console.WriteLine("\t\tNo.{0}で矛盾が発生。吹き飛びました。", Number);
                     Orient = Position.Orientation.None;
                     world.EnqueueContradiction(Number);
                 }

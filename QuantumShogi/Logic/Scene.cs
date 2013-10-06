@@ -10,5 +10,7 @@ namespace QuantumShogi.Logic
         public abstract void Logic();
 
         public abstract void Draw();
+
+        public abstract bool Processing();
     }
 }

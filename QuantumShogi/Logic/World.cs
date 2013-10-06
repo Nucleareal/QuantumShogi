@@ -99,6 +99,7 @@ namespace QuantumShogi.Logic
 
         public void OnClick(int Code)
         {
+            if (mx < 0) return;
             rx = mx / ShogiEnvironment.Piece.SizeX;
             ry = my / ShogiEnvironment.Piece.SizeY;
             if (Code == (int)MouseCode.LEFTCLICK)
@@ -107,12 +108,9 @@ namespace QuantumShogi.Logic
                 {
                     Position pos = new Position(rx, ry, Position.Orientation.None);
 
-                    Console.WriteLine("Try Moving to "+pos);
-
                     if (ClickedList.Contains(pos))
                     {
                         Move(cx, cy, rx, ry);
-                        Console.WriteLine("Moved");
                     }
                     ClickedList.Clear();
                 }
@@ -188,8 +186,8 @@ namespace QuantumShogi.Logic
                 int rx = mx / ShogiEnvironment.Piece.SizeX;
                 int ry = my / ShogiEnvironment.Piece.SizeY;
                 string[] state = Board[rx, ry].ToString().Split('\n');
-                DxLibProxy.DrawWideableBox(px, py, 300, 20 + (state.Length-1) * FontSize, DX.GetColor(0, 0, 0), DX.GetColor(255, 255, 255));
-                DxLibProxy.DrawSplitString(px + 10, py + 10, state, DX.GetColor(0, 0, 0), FontSize);
+                DxLibProxy.DrawWideableBox(px, py, 180, 40 + (state.Length-1) * FontSize, DX.GetColor(0, 0, 0), DX.GetColor(255, 255, 255));
+                DxLibProxy.DrawSplitString(px + 20, py + 20, state, DX.GetColor(0, 0, 0), FontSize);
             }
 
             if (IsConted)
@@ -283,10 +281,9 @@ namespace QuantumShogi.Logic
 
         private void CheckConvergence(Piece p)
         {
-            Console.WriteLine("Checking Convergence [{0}]", p.Number);
             if (p.CheckConvergence(this)) //収束したら
             {
-                Console.WriteLine("Convergenced to {0}", p.SingleType);
+                Console.WriteLine("No.{0}が{1}に収束", p.Number, p.SingleType);
                 // PC[PlayerNum,]++;
                 int PlayerNum = GetPlayerNumber(p.Orient);
                 int PieceNum = p.SingleType.GrHandle % CountPlys.Length;
@@ -294,19 +291,53 @@ namespace QuantumShogi.Logic
                 {
                     List<Piece> list = new List<Piece>();
 
+                    Console.WriteLine("矛盾調査開始");
                     foreach (var v in Board)
                     {
                         if (v.SingleType != p.SingleType && v.Orient == p.Orient) //同じプレイヤーのやつ
                         {
+                            Console.WriteLine("\tNo.{0}を調査中", v.Number);
                             if (v.RemoveConvergencedType(this, p.SingleType))
                             {
                                 list.Add(v);
                             }
                         }
                     }
+                    Console.WriteLine("持ち駒を調査中");
+                    foreach (var q in PlayerStock)
+                    {
+                        foreach (var v in q)
+                        {
+                            if (v.SingleType != p.SingleType && v.Orient == p.Orient) //同じプレイヤーのやつ
+                            {
+                                Console.WriteLine("\tNo.{0}を調査中", v.Number);
+                                if (v.RemoveConvergencedType(this, p.SingleType))
+                                {
+                                    list.Add(v);
+                                }
+                            }
+                        }
+                    }
+                    Console.WriteLine("調査終了");
                     foreach (var v in list)
                     {
                         CheckConvergence(v);
+                    }
+                }
+
+                foreach (var q in PlayerStock)
+                {
+                    List<Piece> rem = new List<Piece>();
+                    foreach (var v in q)
+                    {
+                        if (v.Orient == Position.Orientation.None)
+                        {
+                            rem.Add(v);
+                        }
+                    }
+                    foreach (var v in rem)
+                    {
+                        q.Remove(v);
                     }
                 }
             }

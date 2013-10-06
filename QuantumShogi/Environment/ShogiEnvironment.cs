@@ -26,6 +26,16 @@ namespace QuantumShogi.Environment
             }
         }
 
+        public static string WindowName
+        {
+            get { return "量子将棋 " + Version; }
+        }
+
+        public static string Version
+        {
+            get { return "v0000"; }
+        }
+
         public static class Piece
         {
             public static int Count

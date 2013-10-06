@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DxLibDLL;
 
 namespace QuantumShogi.Logic
 {
@@ -11,6 +12,7 @@ namespace QuantumShogi.Logic
         private KeyListener klistener;
         private MousePointEventHandler Pointing;
         private MouseClickEventHandler Clicking;
+        private bool IsRunning;
 
         public Scene_Play()
         {
@@ -26,6 +28,9 @@ namespace QuantumShogi.Logic
 
             klistener.OnPoint += Pointing;
             klistener.MouseDown += Clicking;
+
+            IsRunning = true;
+            klistener.KeyDown += delegate(int KeyCode) { if(KeyCode == DX.KEY_INPUT_ESCAPE) IsRunning = false; };
         }
 
         public override void Logic()
@@ -36,6 +41,11 @@ namespace QuantumShogi.Logic
         public override void Draw()
         {
             world.Draw();
+        }
+
+        public override bool Processing()
+        {
+            return IsRunning;
         }
     }
 }

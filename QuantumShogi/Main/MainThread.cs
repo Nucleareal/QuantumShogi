@@ -14,7 +14,7 @@ namespace QuantumShogi.Main
         {
             Scene s = new Scene_Play();
 
-            while (DxLibProxy.Refresh())
+            while (DxLibProxy.Refresh() && s.Processing())
             {
                 s.Draw();
                 s.Logic();

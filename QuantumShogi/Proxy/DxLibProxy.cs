@@ -18,6 +18,7 @@ namespace QuantumShogi.Proxy
 
         private static IEnumerable<int> InitalWork()
         {
+            yield return DX.SetWindowText(ShogiEnvironment.WindowName);
             yield return DX.ChangeWindowMode(DX.TRUE);
             yield return DX.SetGraphMode(DXEnvironment.SX, DXEnvironment.SY, 32);
             yield return DX.DxLib_Init();
